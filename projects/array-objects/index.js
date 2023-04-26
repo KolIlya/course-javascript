@@ -9,7 +9,14 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el)); // выведет каждый элемент массива
  */
-function forEach() {}
+
+const numbers = [1, 2, 3];
+
+function forEach(number) {
+  console.log(number);
+}
+
+numbers.forEach(forEach);
 
 /*
  Задание 2:
