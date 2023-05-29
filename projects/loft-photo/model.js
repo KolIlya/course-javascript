@@ -7,7 +7,7 @@ export default {
       return null;
     }
 
-    const index = parseInt(Math.random() * (array.length - 1));
+    const index = Math.round(Math.random() * (array.length -1));
 
     return array[index];
   },
@@ -18,7 +18,7 @@ export default {
     const photo = this.getRandomElement(photos.items);
     const size = this.findSize(photo);
 
-    return { friend, id: photo.id, url: photo.url };
+    return {friend, id: photo.id, url: size.url};
   },
 
   findSize(photo) {
@@ -38,12 +38,10 @@ export default {
   },
 
   login() {
-    return (
-      new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         VK.init({
           apiId: 51643952,
         });
-      }),
       VK.Auth.login((response) => {
         if (response.session) {
           this.token = response.session.sid;
@@ -52,8 +50,8 @@ export default {
           console.error(response);
           reject(response);
         }
-      }, PERM_FRIENDS | PERM_PHOTOS)
-    );
+      }, PERM_FRIENDS | PERM_PHOTOS);
+    });
   },
 
   logout() {
@@ -145,7 +143,7 @@ export default {
       params.body = JSON.stringify(body);
     }
 
-    const response = await fetch(`/loft-photo-lite-5/api/?$(query)`, params);
+    const response = await fetch(`/loft-photo/api/?${query}`, params);
 
     return response.json();
   },

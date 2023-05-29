@@ -27,9 +27,7 @@ export default {
   },
 
   handleEvents() {
-    document
-      .querySelector('component-user-photos')
-      .addEventListener('click', async (e) => {
+    document.querySelector('.component-user-photos').addEventListener('click', async (e) => {
         if (e.target.classList.contains('component-user-photo')) {
           const photoId = e.target.dataset.id;
 
