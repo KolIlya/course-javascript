@@ -27,17 +27,19 @@ export default {
   },
 
   handleEvents() {
-    document.querySelector('.component-user-photos').addEventListener('click', async (e) => {
-        if (e.target.classList.contains('component-user-photo')) {
+    document 
+      .querySelector('.component-user-photos')
+      .addEventListener('click', async (e) => {
+        if(e.target.classList.contains('component-user-photo')) {
           const photoId = e.target.dataset.id;
-
+          const friendsPhotos = await model.getPhotos(this.user.id);
+          const photo = friendsPhotos.items.find((photo) => photo.id == photoId);
           const size = model.findSize(photo);
-          const friendPhotos = await model.getPhotos(this.user.id);
-          const photo = friendPhotos.items.find((photo) => photo.id == photoId);
 
           mainPage.setFriendAndPhoto(this.user, parseInt(photoId), size.url);
           pages.openPage('main');
         }
+
       });
 
     document.querySelector('.page-profile-back').addEventListener('click', async () => {

@@ -95,18 +95,18 @@ export default {
 
   async loadComments(photo) {
     const comments = await model.getComments(photo);
-    const commentsElements = commentsTemplate({
+    const commentsElements = commentsTemplate ({
       list: comments.map((comment) => {
         return {
           name: `${comment.user.first_name ?? ''} ${comment.user.last_name ?? ''}`,
-          photo: comment.user.photo_50,
+          photo: comment.user.photo_50, 
           text: comment.text,
         };
       }),
     });
 
-    document.querySelector('component-comments-container-list').innerHTML = '';
-    document.querySelector('component-comments-container-list').append(commentsElements);
+    document.querySelector('.component-comments-container-list').innerHTML = '';
+    document.querySelector('.component-comments-container-list').append(commentsElements);
     this.setComments(comments.length);
   },
 
@@ -115,7 +115,7 @@ export default {
       '.component-footer-container-social-likes'
     );
 
-    likesElement.innerText = total;
+    likesElement.innerText = total; 
 
     if (liked) {
       likesElement.classList.add('liked');
