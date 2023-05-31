@@ -14,18 +14,18 @@ const methods = {
     let photoLikes = DB.likes.get(photoId);
 
     if (!photoLikes) {
-      photoLikes = new Map();
-      DB.likes.set(photoId, photoLikes);
+        photoLikes = new Map();
+        DB.likes.set(photoId, photoLikes);
     }
 
     if (photoLikes.get(vkUser.id)) {
-      photoLikes.delete(vkUser.id);
-      return { likes: photoLikes.size, liked: false };
+        photoLikes.delete(vkUser.id);
+        return {likes: photoLikes.size, liked: false};
     }
 
     photoLikes.set(vkUser.id, true);
-    return { likes: photoLikes.size, liked: true };
-  },
+    return {likes: photoLikes.size, liked: true};
+},
 
   photoStats(req, res, url, vkUser) {
     const photoId = url.searchParams.get('photo');
@@ -33,27 +33,27 @@ const methods = {
     const photoComments = DB.comments.get(photoId);
 
     return {
-      likes: photoLikes?.size ?? 0,
-      liked: photoLikes?.has(vkUser.id) ?? false,
-      comments: photoComments?.length ?? 0,
+        likes: photoLikes?.size ?? 0,
+        liked: photoLikes?.has(vkUser.id) ?? false, 
+        comments: photoComments?.length ?? 0,
     };
-  },
+},
 
   postComment(req, res, url, vkUser, body) {
     const photoId = url.searchParams.get('photo');
-    const photoComments = DB.comments.get(photoId);
+    let photoComments = DB.comments.get(photoId);
 
-    if (!photoComments) {
-      photoLikes = [];
-      DB.comments.set(photoId, photoComments);
+    if(!photoComments) {
+        photoComments = [];
+        DB.comments.set(photoId, photoComments);
     }
 
-    photoComments.unshift({ user: vkUser, text: body.text });
-  },
+    photoComments.unshift({user: vkUser, text: body.text});
+},
   getComments(req, res, url) {
     const photoId = url.searchParams.get('photo');
     return DB.comments.get(photoId) ?? [];
-  },
+},
 };
 
 http

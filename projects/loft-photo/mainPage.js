@@ -88,7 +88,7 @@ export default {
         if (input.value.trim().length) {
           await model.postComment(this.photoId, input.value.trim());
           input.value = '';
-          await this.loadComments(this, photoId);
+          await this.loadComments(this.photoId);
         }
       });
   },
